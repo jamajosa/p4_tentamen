@@ -11,7 +11,7 @@ import nl.avans.android.todos.domain.ToDo;
 
 import static nl.avans.android.todos.presentation.MainActivity.TODO_DATA;
 
-public class ToDoDetailActivity extends AppCompatActivity {
+public class ToDoEditActivity extends AppCompatActivity {
 
     private TextView textTitle;
     private TextView textContents;
@@ -21,10 +21,10 @@ public class ToDoDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_to_do_detail);
+        setContentView(R.layout.activity_to_do_edit);
 
-        textTitle = (TextView) findViewById(R.id.textDetailToDoTitle);
-        textContents = (TextView) findViewById(R.id.textDetailToDoContents);
+        textTitle = (TextView) findViewById(R.id.textEditToDoTitle);
+        textContents = (TextView) findViewById(R.id.textEditToDoContents);
 
         Bundle extras = getIntent().getExtras();
 

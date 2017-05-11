@@ -30,7 +30,7 @@ public class ToDoApiConnector extends AsyncTask<String, Void, String> {
     private String urlString = "";
     private final String TAG = this.getClass().getSimpleName();
 
-    // We retourneren de hele lijst met producten.
+    // We retourneren de hele lijst met ToDos.
     private ArrayList<ToDo> toDoArrayList = new ArrayList<>();
 
     /**
