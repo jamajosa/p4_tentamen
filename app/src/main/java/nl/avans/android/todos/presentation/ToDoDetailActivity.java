@@ -1,8 +1,10 @@
 package nl.avans.android.todos.presentation;
 
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import nl.avans.android.todos.R;
@@ -32,5 +34,15 @@ public class ToDoDetailActivity extends AppCompatActivity {
 
         textTitle.setText(toDo.getTitle());
         textContents.setText(toDo.getContents());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish(); // or go to another activity
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
