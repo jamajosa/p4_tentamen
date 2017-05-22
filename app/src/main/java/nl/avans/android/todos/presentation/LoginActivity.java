@@ -1,6 +1,7 @@
 package nl.avans.android.todos.presentation;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -76,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             // Succesvol response - dat betekent dat we een geldig token hebben.
-                            txtLoginErrorMsg.setText("Response: " + response.toString());
+                            // txtLoginErrorMsg.setText("Response: " + response.toString());
                             displayMessage("Succesvol ingelogd!");
 
                             // We hebben nu het token. We kiezen er hier voor om
@@ -92,6 +93,13 @@ public class LoginActivity extends AppCompatActivity {
                                 SharedPreferences.Editor editor = sharedPref.edit();
                                 editor.putString(getString(R.string.saved_token), token);
                                 editor.commit();
+
+                                // Start the main activity, and close the login activity
+                                Intent main = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(main);
+                                // Close the current activity
+                                finish();
+
                             } catch (JSONException e) {
                                 // e.printStackTrace();
                                 Log.e(TAG, e.getMessage());
@@ -116,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
             txtLoginErrorMsg.setText(e.getMessage());
             // e.printStackTrace();
         }
+        return;
     }
 
     public void handleErrorResponse(VolleyError error) {

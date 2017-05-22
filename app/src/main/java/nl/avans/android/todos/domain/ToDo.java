@@ -12,6 +12,13 @@ public class ToDo implements Serializable {
     private String status;
     private DateTime createdAt;
 
+    public ToDo(String title, String contents) {
+        this.title = title;
+        this.contents = contents;
+        this.status = null;
+        this.createdAt = new DateTime();
+    }
+
     public ToDo(String title, String contents, String status, DateTime createdAt) {
         this.title = title;
         this.contents = contents;

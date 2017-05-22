@@ -12,34 +12,40 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
- *
+ * Deze class vertaalt JSON objecten naar (lijsten van) ToDos.
  */
 public class ToDoMapper {
 
+    public static final String TODO_RESULT = "result";
+    public static final String TODO_TITLE = "Titel";
+    public static final String TODO_DESCRIPTION = "Beschrijving";
+    public static final String TODO_CREATED_AT = "AangemaaktOp";
+    public static final String TODO_STATUS = "Status";
+
     /**
-     *
+     * Map het JSON response op een arraylist en retourneer deze.
      */
     public static ArrayList<ToDo> mapToDoList(JSONObject response){
 
         ArrayList<ToDo> result = new ArrayList<>();
 
         try{
-            JSONArray jsonArray = new JSONArray(response);
+            JSONArray jsonArray = response.getJSONArray(TODO_RESULT);
 
             for(int i = 0; i < jsonArray.length(); i++){
                 JSONObject jsonProduct = jsonArray.getJSONObject(i);
 
                 // Convert stringdate to Date
-                String timestamp = jsonProduct.getString("AangemaaktOp");
+                String timestamp = jsonProduct.getString(TODO_CREATED_AT);
                 DateTime todoDateTime = ISODateTimeFormat.dateTimeParser().parseDateTime(timestamp);
 
                 ToDo toDo = new ToDo(
-                        jsonProduct.getString("Titel"),
-                        jsonProduct.getString("Beschrijving"),
-                        jsonProduct.getString("Status"),
-                        todoDateTime
+                    jsonProduct.getString(TODO_TITLE),
+                    jsonProduct.getString(TODO_DESCRIPTION),
+                    jsonProduct.getString(TODO_STATUS),
+                    todoDateTime
                 );
-                Log.i("ToDoMapper", "ToDo: " + toDo);
+//                Log.i("ToDoMapper", "ToDo: " + toDo);
 
                 result.add(toDo);
             }
