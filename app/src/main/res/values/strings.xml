@@ -7,7 +7,13 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_settings">Settings</string>
 
+    <!-- Error messages-->
+    <string name="error_server_offline">Kon de server niet bereiken - probeer het nog een keer.</string>
+
     <!-- Strings related to Settings -->
+
+    <string name="preference_file_key">nl.avans.android.todos.SHARED_PREFS_FILE</string>
+    <string name="saved_token">saved_token</string>
 
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>

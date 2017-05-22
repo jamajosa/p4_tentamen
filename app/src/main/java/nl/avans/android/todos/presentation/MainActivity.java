@@ -1,6 +1,8 @@
 package nl.avans.android.todos.presentation;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -24,17 +26,18 @@ import nl.avans.android.todos.R;
 import nl.avans.android.todos.domain.ToDo;
 import nl.avans.android.todos.domain.ToDoAdapter;
 import nl.avans.android.todos.service.ToDoApiConnector;
+import nl.avans.android.todos.service.ToDoRequest;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemClickListener,
-        ToDoApiConnector.ToDoListener {
+        implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemClickListener
+         , ToDoApiConnector.ToDoListener
+{
 
     public final String TAG = this.getClass().getSimpleName();
 
-    public final static String TODO_DATA = "PRODUCT";
+    public final static String TODO_DATA = "TODOS";
 
-    private ListView listViewProducts;
-    private final String todoApiUrl = "https://mynodetodolistserver.herokuapp.com/api/v1/todos";
+    private ListView listViewToDos;
     private BaseAdapter productAdapter;
     private ArrayList<ToDo> toDos = new ArrayList<>();
 
@@ -63,14 +66,37 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        listViewProducts = (ListView) findViewById(R.id.listViewToDos);
-        listViewProducts.setOnItemClickListener(this);
+        listViewToDos = (ListView) findViewById(R.id.listViewToDos);
+        listViewToDos.setOnItemClickListener(this);
         productAdapter = new ToDoAdapter(this, getLayoutInflater(), toDos);
-        listViewProducts.setAdapter(productAdapter);
+        listViewToDos.setAdapter(productAdapter);
 
-        // Vul de lijst met ToDos
-        ToDoApiConnector apiConnector = new ToDoApiConnector(this);
-        apiConnector.execute(todoApiUrl);
+        // We kijken hier eerst of de gebruiker nog een geldig token heeft.
+        // Het token is opgeslagen in SharedPreferences.
+        // Mocht er geen token zijn, of het token is expired, dan moeten we
+        // eerst opnieuw inloggen.
+        Context context = getApplicationContext();
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        String token = sharedPref.getString(getString(R.string.saved_token), "dummy default token");
+        if(token == null || token.equals("dummy default token")){
+            //
+            // Blijkbaar was er geen token - eerst inloggen dus
+            //
+            Log.d(TAG, "Geen token gevonden - inloggen dus");
+            Intent login = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(login);
+        } else {
+            //
+            // We hebben een token. Je zou eerst nog kunnen valideren dat het token nog
+            // geldig is; dat doen we nu niet.
+            // Vul de lijst met ToDos
+            //
+            Log.d(TAG, "Token gevonden - ToDos ophalen!");
+//            ToDoApiConnector apiConnector = new ToDoApiConnector(this);
+//            apiConnector.execute(Config.URL_TODOS);
+            getToDos();
+        }
 
     }
 
@@ -154,4 +180,13 @@ public class MainActivity extends AppCompatActivity
         }
         productAdapter.notifyDataSetChanged();
     }
+
+
+    private void getToDos(){
+
+        ToDoRequest request = new ToDoRequest(getApplicationContext(), this);
+        request.handleGetAllToDos();
+
+    }
+
 }
