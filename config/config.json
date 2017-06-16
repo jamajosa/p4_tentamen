@@ -1,0 +1,7 @@
+{
+    "webPort": "3000",
+    "dbHost": "localhost",
+    "dbUser": "1018", 
+    "dbDatabase": "progtoets4", 
+    "secretkey": "een lange complexe tekst die moeilijk te raden is"
+}
