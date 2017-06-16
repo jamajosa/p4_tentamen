@@ -30,7 +30,7 @@ routes.get('/todos/:id', function(req, res) {
 
     res.contentType('application/json');
 
-    db.query('SELECT * FROM todos WHERE ID=?', [todosId], function(error, rows, fields) {
+    db.query('SELECT * FROM costumer WHERE ID=?', [todosId], function(error, rows, fields) {
         if (error) {
             res.status(401).json(error);
         } else {
