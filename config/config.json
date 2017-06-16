@@ -1,6 +1,6 @@
 {
     "webPort": "3000",
-    "dbHost": "localhost",
+    "dbHost": "146.185.130.82",
     "dbUser": "1018",
     "dbPass":"%secret%", 
     "dbDatabase": "progtoets4", 
