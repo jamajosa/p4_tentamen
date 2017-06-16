@@ -11,7 +11,7 @@ var db = require('../config/db');
 routes.get('/todos', function(req, res) {
     res.contentType('application/json');
 
-    db.query('SELECT * FROM todos', function(error, rows, fields) {
+    db.query('SELECT * FROM customer', function(error, rows, fields) {
         if (error) {
             res.status(401).json(error);
         } else {
