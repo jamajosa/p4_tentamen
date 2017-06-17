@@ -24,8 +24,8 @@ router.post('/login', function(req, res) {
     var password = req.body.password;
 
     var query = {
-        sql: 'SELECT * FROM customer where first_name=?',
-        values: [username],
+        sql: 'SELECT * FROM customer where first_name=? and password=?',
+        values: [username,password],
         timeout: 2000 // 2secs
     };
 
