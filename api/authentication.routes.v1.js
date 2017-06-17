@@ -23,21 +23,15 @@ router.post('/login', function(req, res) {
     var username = req.body.username;
     var password = req.body.password;
 
-    //in de database checken voor de match
-    var _dummy_username = db.query("SELECT first_name FROM customer where first_name ='" + username +"';");
-    var _dummy_password = db.query("SELECT password FROM customer where password ='" + password + "';");
+    res.contentType('application/json');
 
-    // Kijk of de gegevens matchen. Zo ja, dan token genereren en terugsturen.
-    if (username == _dummy_username && password == _dummy_password) {
-        var token = auth.encodeToken(username);
-        res.status(200).json({
-            "token": token,
-        });
-    } else {
-        console.log('Input: username = ' + username + ', password = ' + password);
-        res.status(401).json({ "error": "Invalid credentials, bye" + _dummy_password })
-    }
-
+    db.query('SELECT * FROM costumer WHERE first_name=? AND password=?', [username],[password], function(error, rows, fields) {
+        if (error) {
+            res.status(401).json(error);
+        } else {
+            res.status(200).json({ result: rows });
+        };
+    });
 });
 
 // Hiermee maken we onze router zichtbaar voor andere bestanden. 
