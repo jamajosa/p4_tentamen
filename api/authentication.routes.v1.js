@@ -33,6 +33,7 @@ router.post('/login', function(req, res) {
     db.query(query, function(error, rows, fields) {
         if (error) {
             res.status(401).json(error);
+            console.log(query);
         } else {
             res.status(200).json({ result: rows });
         };
