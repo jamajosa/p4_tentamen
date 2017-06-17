@@ -3,7 +3,7 @@
 //
 var express = require('express');
 var router = express.Router();
-
+var db = require('../config/db');
 var auth = require('../auth/authentication');
 
 //
@@ -23,10 +23,9 @@ router.post('/login', function(req, res) {
     var username = req.body.username;
     var password = req.body.password;
 
-    // Dit is een dummy-user - die haal je natuurlijk uit de database.
-    // Momenteel zetten we ze als environment variabelen. (Ook op Heroku!)
-    var _dummy_username = process.env.APP_USERNAME || "1018";
-    var _dummy_password = process.env.APP_PASSWORD || "%secret%";
+    //in de database checken voor de match
+    var _dummy_username = db.query('SELECT first_name FROM customer where first_name =' + username +';');
+    var _dummy_password = db.query('SELECT password FROM customer where password =' + password + ';');
 
     // Kijk of de gegevens matchen. Zo ja, dan token genereren en terugsturen.
     if (username == _dummy_username && password == _dummy_password) {
