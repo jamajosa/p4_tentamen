@@ -24,8 +24,8 @@ router.post('/login', function(req, res) {
     var password = req.body.password;
 
     //in de database checken voor de match
-    var _dummy_username = db.query('SELECT first_name FROM customer where first_name =' + username +';');
-    var _dummy_password = db.query('SELECT password FROM customer where password =' + password + ';');
+    var _dummy_username = db.query("SELECT first_name FROM customer where first_name ='" + username +"';");
+    var _dummy_password = db.query("SELECT password FROM customer where password ='" + password + "';");
 
     // Kijk of de gegevens matchen. Zo ja, dan token genereren en terugsturen.
     if (username == _dummy_username && password == _dummy_password) {
