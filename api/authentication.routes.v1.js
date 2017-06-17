@@ -23,15 +23,21 @@ router.post('/login', function(req, res) {
     var username = req.body.username;
     var password = req.body.password;
 
-    res.contentType('application/json');
+    var query = {
+        sql: 'SELECT * FROM customer where first_name=? and password=?',
+        values: [username,password],
+        timeout: 2000 // 2secs
+    };
 
-    db.query('SELECT * FROM costumer WHERE first_name='+username+' AND password='+password+';', function(error, rows, fields) {
+    res.contentType('application/json');
+    db.query(query, function(error, rows, fields) {
         if (error) {
-            username + password;
+            res.status(401).json(error);
         } else {
             res.status(200).json({ result: rows });
         };
     });
+
 });
 
 // Hiermee maken we onze router zichtbaar voor andere bestanden. 
