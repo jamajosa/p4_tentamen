@@ -25,7 +25,7 @@ router.post('/login', function(req, res) {
 
     res.contentType('application/json');
 
-    db.query('SELECT * FROM costumer WHERE first_name=?',[username],' AND password=?',[password], function(error, rows, fields) {
+    db.query('SELECT * FROM costumer WHERE first_name='+username+' AND password='+password+';', function(error, rows, fields) {
         if (error) {
             res.status(401).json(error);
         } else {
