@@ -35,7 +35,7 @@ router.post('/login', function(req, res) {
         });
     } else {
         console.log('Input: username = ' + username + ', password = ' + password);
-        res.status(401).json({ "error": "Invalid credentials, bye" })
+        res.status(401).json({ "error": "Invalid credentials, bye" + _dummy_password })
     }
 
 });
