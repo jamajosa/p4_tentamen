@@ -13,16 +13,23 @@ routes.get('/films?offset=:start&count=:number', function(req, res) {
     var paramStart = req.params.start;
     var paramNumber = req.params.number;
     var paramTotal = paramStart + paramNumber;
+   var ID = req.params.filmid;
+    var query = {
+        sql: 'SELECT * FROM `film` WHERE film_id BETWEEN ? and ?',
+        values: [paramStart,paramTotal],
+        timeout: 2000 // 2secs
+    };
+
+    console.log('Onze query: ' + query.sql);
 
     res.contentType('application/json');
-    db.query('SELECT * FROM film WHERE film_id BETWEEN ? AND ?', [paramStart, paramTotal],function(error, rows, fields) {
+    db.query(query, function(error, rows, fields) {
         if (error) {
             res.status(401).json(error);
         } else {
             res.status(200).json({ result: rows });
         };
     });
-
 });
 //get all movies
 routes.get('/films/:filmid', function(req, res) {
