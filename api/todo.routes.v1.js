@@ -40,7 +40,7 @@ routes.get('/films?offset=:start&count=:number', function(req, res) {
 
 });
 //get all movies
-routes.get('/films', function(req, res) {
+routes.get('/allfilms', function(req, res) {
     res.contentType('application/json');
     db.query('SELECT * FROM film', function(error, rows, fields) {
         if (error) {
