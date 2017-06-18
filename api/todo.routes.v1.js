@@ -6,21 +6,6 @@ var routes = express.Router();
 var db = require('../config/db');
 
 //
-// Geef een lijst van alle todos. Dat kunnen er veel zijn.
-//
-routes.get('/todos', function(req, res) {
-    res.contentType('application/json');
-
-    db.query('SELECT * FROM customer', function(error, rows, fields) {
-        if (error) {
-            res.status(401).json(error);
-        } else {
-            res.status(200).json({ result: rows });
-        };
-    });
-});
-
-//
 // retourneert een lijst met fims vanaf start en dan alle films die eronder staan met een counter dat het number is van wanneer hij stopt
 //
 routes.get('/films?offset=:start&count=:number', function(req, res) {
