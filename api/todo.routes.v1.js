@@ -30,7 +30,7 @@ routes.get('/films?offset=:start&count=:number', function(req, res) {
     var paramTotal = paramStart + paramNumber;
 
     res.contentType('application/json');
-    db.query('SELECT * FROM film WHERE film_id BETWEEN ? AND ?', [paramStart,paramTotal], function(error, rows, fields) {
+    db.query('SELECT * FROM film WHERE film_id BETWEEN '+paramStart+' AND '+paramTotal+';', function(error, rows, fields) {
         if (error) {
             res.status(401).json(error);
         } else {
