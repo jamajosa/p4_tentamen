@@ -12,7 +12,7 @@ routes.get('/films', function(req, res) {
 
     var filme = req.body;
     var query = {
-        sql: 'SELECT * FROM `film` WHERE film_id BETWEEN ? AND ? ',
+        sql: 'SELECT * FROM `film` WHERE film_id BETWEEN ? AND ?',
         values: [filme.offset,filme.count],
         timeout: 2000 // 2secs
     };
