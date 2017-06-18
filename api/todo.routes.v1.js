@@ -29,7 +29,7 @@ routes.get('/films', function(req, res) {
     });
 });
 
-//get all movies
+//get all movies with :filmid
 routes.get('/films/:filmid', function(req, res) {
     var ID = req.params.filmid;
     var query = {
@@ -49,6 +49,33 @@ routes.get('/films/:filmid', function(req, res) {
         };
     });
 });
+
+routes.get('/rentals/:userid', function(req, res) {
+    var ID = req.params.filmid;
+    var query = {
+        sql: 'SELECT f.title, f.description,f.rating FROM rental r, inventory i , film f WHERE r.customer_id=? AND i.inventory_id=r.inventory_id AND i.film_id=f.film_id',
+        values: [ID],
+        timeout: 2000 // 2secs
+    };
+
+    console.log('Onze query: ' + query.sql);
+
+    res.contentType('application/json');
+    db.query(query, function(error, rows, fields) {
+        if (error) {
+            res.status(401).json(error);
+        } else {
+            res.status(200).json({ result: rows });
+        };
+    });
+});
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //
 // Voeg een todo toe. De nieuwe info wordt gestuurd via de body van de request message.
