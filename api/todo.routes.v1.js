@@ -14,7 +14,8 @@ routes.get('/films?offset=:start&count=:number', function(req, res) {
     var paramNumber = req.params.number;
     var numb= paramStart + paramNumber;
     var query = {
-        sql: 'SELECT * FROM `film` WHERE film_id BETWEEN '+paramStart+' AND '+numb+'',
+        sql: 'SELECT * FROM `film` WHERE film_id BETWEEN ? AND ? ',
+        values: [paramStart,numb],
         timeout: 2000 // 2secs
     };
 
