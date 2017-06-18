@@ -12,11 +12,10 @@ routes.get('/films?offset=:start&count=:number', function(req, res) {
 
     var paramStart = req.params.start;
     var paramNumber = req.params.number;
-    var paramTotal = paramStart + paramNumber;
-   var ID = req.params.filmid;
+
     var query = {
         sql: 'SELECT * FROM `film` WHERE film_id BETWEEN ? and ?',
-        values: [paramStart,paramTotal],
+        values: [paramStart,paramStart + paramNumber],
         timeout: 2000 // 2secs
     };
 
