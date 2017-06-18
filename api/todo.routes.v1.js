@@ -51,7 +51,7 @@ routes.get('/films/:filmid', function(req, res) {
 });
 
 routes.get('/rentals/:userid', function(req, res) {
-    var ID = req.params.filmid;
+    var ID = req.params.userid;
     var query = {
         sql: 'SELECT f.title, f.description,f.rating FROM rental r, inventory i , film f WHERE i.inventory_id=r.inventory_id AND i.film_id=f.film_id AND r.customer_id=?',
         values: [ID],
