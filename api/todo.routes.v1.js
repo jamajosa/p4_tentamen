@@ -8,14 +8,13 @@ var db = require('../config/db');
 //
 // retourneert een lijst met fims vanaf start en dan alle films die eronder staan met een counter dat het number is van wanneer hij stopt
 //
-routes.get('/films/offset=:start/count=:number', function(req, res) {
+routes.get('/films?offset=:start&count=:number', function(req, res) {
 
     var paramStart = req.params.start;
     var paramNumber = req.params.number;
-
+    var numb= paramStart + paramNumber;
     var query = {
-        sql: 'SELECT * FROM `film` WHERE film_id BETWEEN ? AND ?',
-        values: [paramStart,paramStart + paramNumber],
+        sql: 'SELECT * FROM `film` WHERE film_id BETWEEN '+paramStart+' AND '+numb+'',
         timeout: 2000 // 2secs
     };
 
