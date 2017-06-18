@@ -41,11 +41,6 @@ routes.get('/films?offset=:start&count=:number', function(req, res) {
 });
 //get all movies
 routes.get('/films', function(req, res) {
-
-    var paramStart = req.params.start;
-    var paramNumber = req.params.number;
-    var paramTotal = paramStart + paramNumber;
-
     res.contentType('application/json');
     db.query('SELECT * FROM film', function(error, rows, fields) {
         if (error) {
