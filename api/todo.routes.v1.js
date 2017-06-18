@@ -21,22 +21,23 @@ routes.get('/todos', function(req, res) {
 });
 
 //
-// Retourneer één specifieke todos. Hier maken we gebruik van URL parameters.
-// Vorm van de URL: http://hostname:3000/api/v1/todos/23
+// retourneert een lijst met fims vanaf start en dan alle films die eronder staan met een counter dat het number is van wanneer hij stopt
 //
-routes.get('/todos/:id', function(req, res) {
+routes.get('/films?offset=:start&count=:number', function(req, res) {
 
-    var todosId = req.params.id;
+    var paramStart = req.params.start;
+    var paramNumber = req.params.number;
+    var paramTotal = paramStart + paramNumber;
 
     res.contentType('application/json');
-
-    db.query('SELECT * FROM costumer WHERE ID=?', [todosId], function(error, rows, fields) {
+    db.query('SELECT * FROM film WHERE film_id BETWEEN ? AND ?', [paramStart,paramTotal], function(error, rows, fields) {
         if (error) {
             res.status(401).json(error);
         } else {
             res.status(200).json({ result: rows });
         };
     });
+
 });
 
 //
