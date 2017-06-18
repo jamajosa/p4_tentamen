@@ -29,8 +29,11 @@ routes.get('/films/:filmid', function(req, res) {
     var ID = req.params.filmid;
     var query = {
         sql: 'SELECT * FROM `film` WHERE film_id=?',
-        values: [ID]
+        values: [ID],
+        timeout: 2000 // 2secs
     };
+
+    console.log('Onze query: ' + query.sql);
 
     res.contentType('application/json');
     db.query(query, function(error, rows, fields) {
