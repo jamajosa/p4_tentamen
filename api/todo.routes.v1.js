@@ -28,7 +28,7 @@ routes.get('/films?offset=:start&count=:number', function(req, res) {
 routes.get('/films/:filmid ', function(req, res) {
     var id = req.params.filmid;
     res.contentType('application/json');
-    db.query('SELECT * FROM film where id=?', [id], function(error, rows, fields) {
+    db.query('SELECT * FROM film where id='+id, function(error, rows, fields) {
         if (error) {
             res.status(401).json(error);
         } else {
