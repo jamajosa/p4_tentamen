@@ -17,7 +17,7 @@ routes.get('/fromCountfilms/:start/:number', function(req, res) {
         timeout: 2000 // 2secs
     };
 
-    console.log('Onze query: ' + query.sql);
+    console.log('Nummers ' + start, "    " ,number);
 
     res.contentType('application/json');
     db.query(query, function(error, rows, fields) {
