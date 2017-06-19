@@ -32,7 +32,6 @@ routes.get('/films', function(req, res) {
 routes.get('/allfilms', function(req, res) {
     var query = {
         sql: 'SELECT * FROM `film`',
-        values: [ID],
         timeout: 2000 // 2secs
     };
     console.log('Onze query: ' + query.sql);
