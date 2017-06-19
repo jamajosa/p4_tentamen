@@ -70,7 +70,7 @@ routes.get('/rentals/:userids', function(req, res) {
     });
 });
 //een post om een rental aan te maken
-routes.post('/rentals/:userid/:inventoryid', function(req, res) {
+routes.post('/rentales/:userid/:inventoryid', function(req, res) {
     var userid = req.params.userid;
     var inventoryid = req.params.inventoryid;
     res.contentType('application/json');
