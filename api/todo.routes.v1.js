@@ -28,6 +28,24 @@ routes.get('/films', function(req, res) {
     });
 });
 
+//get all movies
+routes.get('/allfilms', function(req, res) {
+    var query = {
+        sql: 'SELECT * FROM `film`',
+        values: [ID],
+        timeout: 2000 // 2secs
+    };
+    console.log('Onze query: ' + query.sql);
+    res.contentType('application/json');
+    db.query(query, function(error, rows, fields) {
+        if (error) {
+            res.status(401).json(error);
+        } else {
+            res.status(200).json({ result: rows });
+        };
+    });
+});
+
 //get all movies with :filmid
 routes.get('/films/:filmid', function(req, res) {
     var ID = req.params.filmid;
@@ -36,9 +54,7 @@ routes.get('/films/:filmid', function(req, res) {
         values: [ID],
         timeout: 2000 // 2secs
     };
-
     console.log('Onze query: ' + query.sql);
-
     res.contentType('application/json');
     db.query(query, function(error, rows, fields) {
         if (error) {
@@ -84,7 +100,7 @@ routes.post('/rentals/:userid/:inventoryid', function(req, res) {
     });
 });
 
-//een post om een rental te editten
+//een put om een rental te editten
 routes.put('/rentals/:userid/:inventoryid', function(req, res) {
     var userid = req.params.userid;
     var inventoryid = req.params.inventoryid;
