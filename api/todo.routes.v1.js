@@ -84,7 +84,7 @@ routes.post('/rentals/:userid/:inventoryid', function(req, res) {
     });
 });
 
-//een post om een rental aan te maken
+//een post om een rental te editten
 routes.put('/rentals/:userid/:inventoryid', function(req, res) {
     var userid = req.params.userid;
     var inventoryid = req.params.inventoryid;
