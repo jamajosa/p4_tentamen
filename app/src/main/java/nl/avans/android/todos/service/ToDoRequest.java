@@ -62,7 +62,7 @@ public class ToDoRequest {
 
             Log.i(TAG, "Token gevonden, we gaan het request uitvoeren");
             JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                    (Request.Method.GET, Config.URL_TODOS, null, new Response.Listener<JSONObject>() {
+                    (Request.Method.GET, Config.URL_FILMS, null, new Response.Listener<JSONObject>() {
 
                         @Override
                         public void onResponse(JSONObject response) {
@@ -115,7 +115,7 @@ public class ToDoRequest {
                 JSONObject jsonBody = new JSONObject(body);
                 Log.i(TAG, "handlePostToDo - body = " + jsonBody);
                 JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                        (Request.Method.POST, Config.URL_TODOS, jsonBody, new Response.Listener<JSONObject>() {
+                        (Request.Method.POST, Config.URL_FILMS, jsonBody, new Response.Listener<JSONObject>() {
 
                             @Override
                             public void onResponse(JSONObject response) {

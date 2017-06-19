@@ -6,7 +6,7 @@ package nl.avans.android.todos.service;
 
 public class Config {
 
-    public static final String URL_LOGIN = "https://mynodetodolistserver.herokuapp.com/api/v1/login";
-    public static final String URL_TODOS = "https://mynodetodolistserver.herokuapp.com/api/v1/todos";
-
+    public static final String URL_LOGIN = "https://p4tentamen.herokuapp.com/api/v1/login";
+    public static final String URL_REGISTER = "https://p4tentamen.herokuapp.com/api/v1/register";
+    public static final String URL_FILMS = "https://p4tentamen.herokuapp.com/api/v1/allfilms";
 }
