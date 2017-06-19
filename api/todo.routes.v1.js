@@ -7,7 +7,7 @@ var db = require('../config/db');
 
 
 // retourneert een lijst met fims vanaf start en dan alle films die eronder staan met een counter dat het number is van wanneer hij stopt
-routes.get('/films/:start/:number', function(req, res) {
+routes.get('/fromCountfilms/:start/:number', function(req, res) {
 
     var start = req.params.start;
     var number = req.params.number + start;
