@@ -130,11 +130,10 @@ routes.put('/rentals/:userid/:inventoryid', function(req, res) {
 ///////////////////////////////////////////////////////////
 //de delete.
 ///////////////////////////////////////////////////////////
-routes.delete('/todos/:id', function(req, res) {
+routes.delete('/rentals/:userid/:inventoryid ', function(req, res) {
     var ID = req.params.id;
     var query = {
-        sql: 'DELETE FROM `todos` WHERE ID=?',
-        values: [ID],
+        sql: 'DELETE FROM `rental` WHERE `customer_id` = '+userid+' AND `inventory_id` = '+inventoryid,
         timeout: 2000 // 2secs
     };
     console.log('Onze query: ' + query.sql);
