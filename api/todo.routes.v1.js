@@ -81,8 +81,6 @@ routes.post('/rentals/:useris/:inventoryid', function(req, res) {
         values: ["'"+dateNow+"'", inventoryid, userid],
         timeout: 2000 // 2secs
     };
-
-    console.dir(todos);
     console.log('Onze query: ' + query.sql);
 
     res.contentType('application/json');
