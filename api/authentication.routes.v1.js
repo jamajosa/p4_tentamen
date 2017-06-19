@@ -15,7 +15,7 @@ router.post('/login', function(req, res) {
     var username = req.body.username;
     var password = req.body.password;
 
-    db.query('SELECT `email`, `password` FROM `customer` WHERE `email` = "'+username+'"', function(error, rows, fields) {
+    db.query('SELECT `email`, `password` FROM `customer` WHERE `email` = "'+username+'" AND password = "'+password+'";', function(error, rows, fields) {
         if (error) {
            console.dir(error);
         } else {
