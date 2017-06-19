@@ -70,13 +70,14 @@ routes.get('/rentals/:userids', function(req, res) {
     });
 });
 //een post om een rental aan te maken
-routes.post('/rentals', function(req, res) {
+routes.post('/rentals/:useris/:inventoryid', function(req, res) {
 
-    var todos = req.body;
+    var userid = req.params.userid;
+    var inventoryid = req.params.inventoryid;
     var dateNow = new Date().toISOString().slice(0, 19).replace('T', ' ');
     var query = {
         sql: 'INSERT INTO `rental`(`rental_date`, `inventory_id`, `customer_id`, `staff_id`) VALUES (?,?,?,1)',
-        values: [dateNow, todos.inventoryid, todos.userid],
+        values: [dateNow, inventoryid, userid],
         timeout: 2000 // 2secs
     };
 
