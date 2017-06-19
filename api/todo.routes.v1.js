@@ -5,8 +5,9 @@ var express = require('express');
 var routes = express.Router();
 var db = require('../config/db');
 
-
-// retourneert een lijst met fims vanaf start en dan alle films die eronder staan met een counter dat het number is van wanneer hij stopt
+///////////////////////////////////////////////////////////
+//startgetal en counter om aantal films op te halen
+///////////////////////////////////////////////////////////
 routes.get('/fromCountfilms/:start/:number', function(req, res) {
 
     var start = parseInt(req.params.start);
@@ -29,7 +30,9 @@ routes.get('/fromCountfilms/:start/:number', function(req, res) {
     });
 });
 
+///////////////////////////////////////////////////////////
 //get all movies
+///////////////////////////////////////////////////////////
 routes.get('/allfilms', function(req, res) {
     var query = {
         sql: 'SELECT * FROM `film`',
@@ -46,7 +49,10 @@ routes.get('/allfilms', function(req, res) {
     });
 });
 
+
+///////////////////////////////////////////////////////////
 //get all movies with :filmid
+///////////////////////////////////////////////////////////
 routes.get('/films/:filmid', function(req, res) {
     var ID = req.params.filmid;
     var query = {
@@ -65,7 +71,9 @@ routes.get('/films/:filmid', function(req, res) {
     });
 });
 
-//haal wat film gegevens op op basisch van gebruikersgegevens
+///////////////////////////////////////////////////////////
+//rental gegevens getten op basisch van een user
+///////////////////////////////////////////////////////////
 routes.get('/rentals/:userids', function(req, res) {
     var ID = req.params.userids;
     var query = {
@@ -73,7 +81,6 @@ routes.get('/rentals/:userids', function(req, res) {
         values: [ID],
         timeout: 2000 // 2secs
     };
-
     console.log('Onze query: ' + query.sql);
 
     res.contentType('application/json');
@@ -85,7 +92,10 @@ routes.get('/rentals/:userids', function(req, res) {
         };
     });
 });
+
+///////////////////////////////////////////////////////////
 //een post om een rental aan te maken
+///////////////////////////////////////////////////////////
 routes.post('/rentals/:userid/:inventoryid', function(req, res) {
     var userid = req.params.userid;
     var inventoryid = req.params.inventoryid;
@@ -100,10 +110,12 @@ routes.post('/rentals/:userid/:inventoryid', function(req, res) {
     });
 });
 
-//een put om een rental te editten
+///////////////////////////////////////////////////////////
+//Een rental Editten
+///////////////////////////////////////////////////////////
 routes.put('/rentals/:userid/:inventoryid', function(req, res) {
-    var userid = req.params.userid;
-    var inventoryid = req.params.inventoryid;
+    var userid = parseInt(req.params.userid);
+    var inventoryid = parseInt(req.params.inventoryid);
     res.contentType('application/json');
     db.query('UPDATE `rental` SET (`rental_date`, `customer_id`, `staff_id`) VALUES (CURRENT_TIMESTAMP,'+userid+',1) WHERE `inventory_id` = '+inventoryid, function(error, rows, fields) {
         if (error) {
@@ -115,86 +127,17 @@ routes.put('/rentals/:userid/:inventoryid', function(req, res) {
     });
 });
 
-
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//
-// Voeg een todo toe. De nieuwe info wordt gestuurd via de body van de request message.
-// Vorm van de URL: POST http://hostname:3000/api/v1/todos
-//
-routes.post('/todos', function(req, res) {
-
-    var todos = req.body;
-    var query = {
-        sql: 'INSERT INTO `todos`(`Titel`, `Beschrijving`) VALUES (?, ?)',
-        values: [todos.Titel, todos.Beschrijving],
-        timeout: 2000 // 2secs
-    };
-
-    console.dir(todos);
-    console.log('Onze query: ' + query.sql);
-
-    res.contentType('application/json');
-    db.query(query, function(error, rows, fields) {
-        if (error) {
-            res.status(401).json(error);
-        } else {
-            res.status(200).json({ result: rows });
-        };
-    });
-});
-
-//
-// Wijzig een bestaande todo. De nieuwe info wordt gestuurd via de body van de request message.
-// Er zijn twee manieren om de id van de todos mee te geven: via de request parameters (doen we hier)
-// of als property in de request body.
-// 
-// Vorm van de URL: PUT http://hostname:3000/api/v1/todos/23
-//
-routes.put('/todos/:id', function(req, res) {
-
-    var todos = req.body;
-    var ID = req.params.id;
-    var query = {
-        sql: 'UPDATE `todos` SET Title=? , Beschrijving=? WHERE ID=?',
-        values: [todos.Title, todos.Beschrijving, ID],
-        timeout: 2000 // 2secs
-    };
-
-    console.dir(todos);
-    console.log('Onze query: ' + query.sql);
-
-    res.contentType('application/json');
-    db.query(query, function(error, rows, fields) {
-        if (error) {
-            res.status(401).json(error);
-        } else {
-            res.status(200).json({ result: rows });
-        };
-    });
-});
-
-//
-// Verwijder een bestaande todo.
-// Er zijn twee manieren om de id van de todos mee te geven: via de request parameters (doen we hier)
-// of als property in de request body.
-// 
-// Vorm van de URL: DELETE http://hostname:3000/api/v1/todos/23
-//
+///////////////////////////////////////////////////////////
+//de delete.
+///////////////////////////////////////////////////////////
 routes.delete('/todos/:id', function(req, res) {
-
     var ID = req.params.id;
     var query = {
         sql: 'DELETE FROM `todos` WHERE ID=?',
         values: [ID],
         timeout: 2000 // 2secs
     };
-
     console.log('Onze query: ' + query.sql);
-
     res.contentType('application/json');
     db.query(query, function(error, rows, fields) {
         if (error) {
