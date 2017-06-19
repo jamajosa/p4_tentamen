@@ -73,14 +73,8 @@ routes.get('/rentals/:userids', function(req, res) {
 routes.post('/rentals/:userid/:inventoryid', function(req, res) {
     var userid = req.params.userid;
     var inventoryid = req.params.inventoryid;
-
-    var query = {
-        sql: 'INSERT INTO `rental`(`rental_date`, `inventory_id`, `customer_id`, `staff_id`) VALUES (CURRENT_TIMESTAMP,'+inventoryid+','+userid+',1);'
-    };
-    console.log('Onze query: ' + query.sql);
-
     res.contentType('application/json');
-    db.query(query, function(error, rows, fields) {
+    db.query('INSERT INTO `rental`(`rental_date`, `inventory_id`, `customer_id`, `staff_id`) VALUES (CURRENT_TIMESTAMP,'+inventoryid+','+userid+',1);', function(error, rows, fields) {
         if (error) {
             res.status(401).json(error);
         } else {
