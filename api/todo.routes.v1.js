@@ -105,7 +105,7 @@ routes.put('/rentals/:userid/:inventoryid', function(req, res) {
     var userid = req.params.userid;
     var inventoryid = req.params.inventoryid;
     res.contentType('application/json');
-    db.query('UPDATE `rental` SET (`rental_date`, `inventory_id`, `customer_id`, `staff_id`) VALUES (CURRENT_TIMESTAMP,'+inventoryid+','+userid+',1)', function(error, rows, fields) {
+    db.query('UPDATE `rental` SET (`rental_date`, `customer_id`, `staff_id`) VALUES (CURRENT_TIMESTAMP,'+userid+',1) WHERE `inventory_id` = '+inventoryid, function(error, rows, fields) {
         if (error) {
             console.log(error, rows);
             res.status(401).json(error);
