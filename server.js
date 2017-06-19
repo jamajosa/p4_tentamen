@@ -38,7 +38,7 @@ app.use(logger('dev'));
 
 // Installeer de routers
 app.use('/api/v1', auth_routes_v1);
-app.use('/api/v1', todoroutes_v1);
+app.use('/api/v1', filmsroutes_v1);
 
 // Errorhandler voor express-jwt errors
 // Wordt uitgevoerd wanneer err != null; anders door naar next().
@@ -63,7 +63,7 @@ app.use('*', function(req, res) {
 
 // Installatie klaar; start de server.
 app.listen(process.env.PORT || 3000, function() {
-    console.log('De ToDo server luistert op port ' + app.get('port'));
+    console.log('De films server luistert op port ' + app.get('port'));
 });
 
 // Voor testen met mocha/chai moeten we de app exporteren.
