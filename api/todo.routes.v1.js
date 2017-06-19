@@ -12,7 +12,7 @@ routes.get('/fromCountfilms/:start/:number', function(req, res) {
     var start = req.params.start;
     var number = req.params.number + start;
     var query = {
-        sql: 'SELECT * FROM `film` WHERE film_id BETWEEN ? AND ?',
+        sql: 'SELECT * FROM `film` ORDER BY film_id ASC LIMIT ? ,?',
         values: [start,number],
         timeout: 2000 // 2secs
     };
