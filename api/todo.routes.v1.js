@@ -76,6 +76,7 @@ routes.post('/rentals/:userid/:inventoryid', function(req, res) {
     res.contentType('application/json');
     db.query('INSERT INTO `rental`(`rental_date`, `inventory_id`, `customer_id`, `staff_id`) VALUES (CURRENT_TIMESTAMP,'+inventoryid+','+userid+',1)', function(error, rows, fields) {
         if (error) {
+            console.log(error, rows);
             res.status(401).json(error);
         } else {
             res.status(200).json({ result: rows });
