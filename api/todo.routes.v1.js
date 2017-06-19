@@ -5,9 +5,8 @@ var express = require('express');
 var routes = express.Router();
 var db = require('../config/db');
 
-//
+
 // retourneert een lijst met fims vanaf start en dan alle films die eronder staan met een counter dat het number is van wanneer hij stopt
-//
 routes.get('/films', function(req, res) {
 
     var filme = req.body;
@@ -50,6 +49,7 @@ routes.get('/films/:filmid', function(req, res) {
     });
 });
 
+//haal wat film gegevens op op basisch van gebruikersgegevens
 routes.get('/rentals/:userids', function(req, res) {
     var ID = req.params.userids;
     var query = {
@@ -69,7 +69,29 @@ routes.get('/rentals/:userids', function(req, res) {
         };
     });
 });
+//een post om een rental aan te maken
+routes.post('/rentals', function(req, res) {
 
+    var todos = req.body;
+    var dateNow = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    var query = {
+        sql: 'INSERT INTO `rental`(`rental_date`, `inventory_id`, `customer_id`, `staff_id`) VALUES (?,?,?,1)',
+        values: [dateNow, todos.inventoryid, todos.userid],
+        timeout: 2000 // 2secs
+    };
+
+    console.dir(todos);
+    console.log('Onze query: ' + query.sql);
+
+    res.contentType('application/json');
+    db.query(query, function(error, rows, fields) {
+        if (error) {
+            res.status(401).json(error);
+        } else {
+            res.status(200).json({ result: rows });
+        };
+    });
+});
 
 
 
