@@ -84,6 +84,21 @@ routes.post('/rentals/:userid/:inventoryid', function(req, res) {
     });
 });
 
+//een post om een rental aan te maken
+routes.put('/rentals/:userid/:inventoryid', function(req, res) {
+    var userid = req.params.userid;
+    var inventoryid = req.params.inventoryid;
+    res.contentType('application/json');
+    db.query('UPDATE `rental` SET (`rental_date`, `inventory_id`, `customer_id`, `staff_id`) VALUES (CURRENT_TIMESTAMP,'+inventoryid+','+userid+',1)', function(error, rows, fields) {
+        if (error) {
+            console.log(error, rows);
+            res.status(401).json(error);
+        } else {
+            res.status(200).json({ result: rows });
+        };
+    });
+});
+
 
 
 
