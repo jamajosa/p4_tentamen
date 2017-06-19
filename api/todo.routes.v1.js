@@ -78,7 +78,7 @@ routes.post('/rentals/:userid/:inventoryid', function(req, res) {
 
     var query = {
         sql: 'INSERT INTO `rental`(`rental_date`, `inventory_id`, `customer_id`, `staff_id`) VALUES (?,?,?,1);',
-        values: ["'"+dateNow+"'", inventoryid, userid],
+        values: ["'2017-06-06'", inventoryid, userid],
         timeout: 2000 // 2secs
     };
     console.log('Onze query: ' + query.sql);
