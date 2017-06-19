@@ -77,7 +77,7 @@ routes.post('/rentals/:useris/:inventoryid', function(req, res) {
     var dateNow = new Date().toISOString().slice(0, 19).replace('T', ' ');
     var query = {
         sql: 'INSERT INTO `rental`(`rental_date`, `inventory_id`, `customer_id`, `staff_id`) VALUES (?,?,?,1)',
-        values: [dateNow, inventoryid, userid],
+        values: ["'"+dateNow+"'", inventoryid, userid],
         timeout: 2000 // 2secs
     };
 
