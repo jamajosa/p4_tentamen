@@ -55,11 +55,11 @@ public class FilmAdapter extends BaseAdapter {
             Log.i(TAG, "convertView is NULL - nieuwe maken");
 
             // Koppel de convertView aan de layout van onze eigen row
-            convertView = mInflator.inflate(R.layout.list_to_do_row, null);
+            convertView = mInflator.inflate(R.layout.list_film_row, null);
 
             // Maak een ViewHolder en koppel de schermvelden aan de velden uit onze eigen row.
             viewHolder = new ViewHolder();
-            viewHolder.textViewTitle = (TextView) convertView.findViewById(R.id.rowToDoTitle);
+            viewHolder.textViewTitle = (TextView) convertView.findViewById(R.id.rowFilmTitle);
             // viewHolder.textViewContents = (TextView) convertView.findViewById(R.id.rowToDoDate);
 
             // Sla de viewholder op in de convertView
