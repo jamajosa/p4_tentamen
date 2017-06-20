@@ -71,13 +71,15 @@ public class FilmAdapter extends BaseAdapter {
 
         Film bolToDo = bolToDoArrayList.get(position);
         viewHolder.textViewTitle.setText(bolToDo.getTitle());
+        //viewHolder.textViewContents.setText(bolToDo.getContents());
+
 
         return convertView;
     }
 
     private static class ViewHolder {
         public TextView textViewTitle;
-        // public TextView textViewContents;
+        //public TextView textViewContents;
     }
 }
 
