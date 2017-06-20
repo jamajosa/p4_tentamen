@@ -7,11 +7,13 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import nl.avans.android.todos.R;
-import nl.avans.android.todos.domain.ToDo;
+import nl.avans.android.todos.domain.Customer;
+import nl.avans.android.todos.domain.Film;
+import nl.avans.android.todos.service.FilmRequest;
 
-import static nl.avans.android.todos.presentation.MainActivity.TODO_DATA;
+import static nl.avans.android.todos.presentation.MainActivity.FILM_DATA;
 
-public class ToDoDetailActivity extends AppCompatActivity {
+public class FilmDetailActivity extends AppCompatActivity {
 
     private TextView textTitle;
     private TextView textContents;
@@ -21,18 +23,18 @@ public class ToDoDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_to_do_detail);
+        setContentView(R.layout.activity_film_detail);
 
         textTitle = (TextView) findViewById(R.id.textDetailToDoTitle);
         textContents = (TextView) findViewById(R.id.textDetailToDoContents);
 
         Bundle extras = getIntent().getExtras();
 
-        ToDo toDo = (ToDo) extras.getSerializable(TODO_DATA);
-        Log.i(TAG, toDo.toString());
+        Film film = (Film) extras.getSerializable(FILM_DATA);
+        Log.i(TAG, film.toString());
 
-        textTitle.setText(toDo.getTitle());
-        textContents.setText(toDo.getContents());
+        textTitle.setText(film.getTitle());
+        textContents.setText(film.getContents());
     }
 
     @Override

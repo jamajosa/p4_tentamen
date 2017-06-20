@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:orientation="vertical"
-    tools:context="nl.avans.android.todos.presentation.ToDoEditActivity">
+    tools:context="nl.avans.android.todos.presentation.CustomerEditActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,26 +14,27 @@
         android:layout_gravity="top"
         android:orientation="vertical">
 
-        <!--  ToDo title Label -->
+        <!--  Film title Label -->
         <TextView android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dip"
             android:textColor="#372c24"
-            android:text="Title"/>
+            android:text="Mail:"/>
 
         <EditText
+            android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18dp"
             android:layout_marginEnd="25dip"
             android:layout_marginBottom="12dp"
-            android:id="@+id/textEditToDoTitle"/>
+            />
 
-        <!--  ToDo description Label -->
+        <!--  Film description Label -->
         <TextView android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textColor="#372c24"
-            android:text="Description"/>
+            android:text="Password"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -42,12 +43,21 @@
             android:layout_marginEnd="25dip"
             android:layout_gravity="top"
             android:inputType="textMultiLine"
-            android:id="@+id/textEditToDoContents"/>
+            android:id="@+id/editTextPassword"/>
 
+        <Button
+            android:id="@+id/buttonRegister"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dip"
+            android:height="70dip"
+            android:background="@android:color/background_light"
+            android:text="Registreer"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabSaveNewToDo"
+        android:id="@+id/fabSaveNewFilm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

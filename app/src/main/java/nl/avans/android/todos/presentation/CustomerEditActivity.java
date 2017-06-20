@@ -9,15 +9,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import nl.avans.android.todos.R;
-import nl.avans.android.todos.domain.ToDo;
-import nl.avans.android.todos.service.ToDoRequest;
+import nl.avans.android.todos.domain.Film;
 
-import static nl.avans.android.todos.presentation.MainActivity.TODO_DATA;
+import static nl.avans.android.todos.presentation.MainActivity.FILM_DATA;
 
-public class ToDoEditActivity extends AppCompatActivity implements View.OnClickListener {
+public class CustomerEditActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView textTitle;
     private TextView textContents;
@@ -27,20 +24,18 @@ public class ToDoEditActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_to_do_edit);
+        setContentView(R.layout.activity_film_register);
 
-        textTitle = (TextView) findViewById(R.id.textEditToDoTitle);
-        textContents = (TextView) findViewById(R.id.textEditToDoContents);
+        textTitle = (TextView) findViewById(R.id.editTextEmail);
+        textContents = (TextView) findViewById(R.id.edittextPassword);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabSaveNewToDo);
-        fab.setOnClickListener(this);
 
         // See if there's any extras for us.
         // We could use this Activity for both new ToDos
         // and for editing existing ToDos
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
-            ToDo toDo = (ToDo) extras.getSerializable(TODO_DATA);
+            Film toDo = (Film) extras.getSerializable(FILM_DATA);
             Log.i(TAG, toDo.toString());
 
             textTitle.setText(toDo.getTitle());
@@ -59,19 +54,19 @@ public class ToDoEditActivity extends AppCompatActivity implements View.OnClickL
     }
 
     /**
-     * Saving the new ToDo
-     * We return a ToDo object to the caller (MainActivity) for further handling.
+     * Saving the new Film
+     * We return a Film object to the caller (MainActivity) for further handling.
      *
      * @param v
      */
     @Override
     public void onClick(View v) {
-        // Save new ToDo and return to the previous Activity.
-        ToDo newToDo = new ToDo(textTitle.getText().toString(), textContents.getText().toString());
+        // Save new Film and return to the previous Activity.
+        Film newToDo = new Film(textTitle.getText().toString(), textContents.getText().toString());
 
         // We return our data to the MainActivity for further handling.
         Intent iData = new Intent();
-        iData.putExtra( MainActivity.TODO_DATA, newToDo );
+        iData.putExtra( MainActivity.FILM_DATA, newToDo );
 
         // Tell the caller that everyting is OK.
         setResult( android.app.Activity.RESULT_OK, iData );

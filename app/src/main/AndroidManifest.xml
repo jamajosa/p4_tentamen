@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.ToDoDetailActivity"
+            android:name=".presentation.FilmDetailActivity"
             android:parentActivityName=".presentation.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -37,7 +37,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".presentation.MainActivity" />
         </activity>
-        <activity android:name=".presentation.ToDoEditActivity" />
+        <activity android:name=".presentation.CustomerEditActivity" />
         <activity android:name=".presentation.LoginActivity"></activity>
     </application>
 

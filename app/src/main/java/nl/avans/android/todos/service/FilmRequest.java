@@ -2,12 +2,9 @@ package nl.avans.android.todos.service;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Base64;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -21,20 +18,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 import nl.avans.android.todos.R;
-import nl.avans.android.todos.domain.ToDo;
-import nl.avans.android.todos.domain.ToDoMapper;
+import nl.avans.android.todos.domain.Film;
+import nl.avans.android.todos.domain.FilmMapper;
 
 /**
  * Deze class handelt requests naar de API server af. De JSON objecten die we terug krijgen
- * worden door de ToDoMapper vertaald naar (lijsten van) ToDo items.
+ * worden door de FilmMapper vertaald naar (lijsten van) Film items.
  */
-public class ToDoRequest {
+public class FilmRequest {
 
     private Context context;
     public final String TAG = this.getClass().getSimpleName();
 
     // De aanroepende class implementeert deze interface.
-    private ToDoRequest.ToDoListener listener;
+    private FilmListener listener;
 
     /**
      * Constructor
@@ -42,17 +39,17 @@ public class ToDoRequest {
      * @param context
      * @param listener
      */
-    public ToDoRequest(Context context, ToDoRequest.ToDoListener listener) {
+    public FilmRequest(Context context, FilmListener listener) {
         this.context = context;
         this.listener = listener;
     }
 
     /**
-     * Verstuur een GET request om alle ToDo's op te halen.
+     * Verstuur een GET request om alle Film's op te halen.
      */
-    public void handleGetAllToDos() {
+    public void handleGetAllFilms() {
 
-        Log.i(TAG, "handleGetAllToDos");
+        Log.i(TAG, "handleGetAllFilms");
 
         // Haal het token uit de prefs
         SharedPreferences sharedPref = context.getSharedPreferences(
@@ -68,8 +65,8 @@ public class ToDoRequest {
                         public void onResponse(JSONObject response) {
                             // Succesvol response
                             Log.i(TAG, response.toString());
-                            ArrayList<ToDo> result = ToDoMapper.mapToDoList(response);
-                            listener.onToDosAvailable(result);
+                            ArrayList<Film> result = FilmMapper.mapFilmList(response);
+                            listener.onFilmsAvailable(result);
                         }
                     }, new Response.ErrorListener() {
                         @Override
@@ -93,11 +90,11 @@ public class ToDoRequest {
     }
 
     /**
-     * Verstuur een POST met nieuwe ToDo.
+     * Verstuur een POST met nieuwe Film.
      */
-    public void handlePostToDo(final ToDo newTodo) {
+    public void handlePostFilm(final Film newFilm) {
 
-        Log.i(TAG, "handlePostToDo");
+        Log.i(TAG, "handlePostFilm");
 
         // Haal het token uit de prefs
         SharedPreferences sharedPref = context.getSharedPreferences(
@@ -109,11 +106,11 @@ public class ToDoRequest {
             // Maak een JSON object met username en password. Dit object sturen we mee
             // als request body (zoals je ook met Postman hebt gedaan)
             //
-            String body = "{\"Titel\":\"" + newTodo.getTitle() + "\",\"Beschrijving\":\"" + newTodo.getContents() + "\"}";
+            String body = "{\"Titel\":\"" + newFilm.getTitle() + "\",\"Beschrijving\":\"" + newFilm.getContents() + "\"}";
 
             try {
                 JSONObject jsonBody = new JSONObject(body);
-                Log.i(TAG, "handlePostToDo - body = " + jsonBody);
+                Log.i(TAG, "handlePostFilm - body = " + jsonBody);
                 JsonObjectRequest jsObjRequest = new JsonObjectRequest
                         (Request.Method.POST, Config.URL_FILMS, jsonBody, new Response.Listener<JSONObject>() {
 
@@ -124,13 +121,13 @@ public class ToDoRequest {
                                 // Hier kun je kiezen: of een refresh van de hele lijst ophalen
                                 // en de ListView bijwerken ... Of alleen de ene update toevoegen
                                 // aan de ArrayList. Wij doen dat laatste.
-                                listener.onToDoAvailable(newTodo);
+                                listener.onFilmAvailable(newFilm);
                             }
                         }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 // Error - send back to caller
-                                listener.onToDosError(error.toString());
+                                listener.onFilmsError(error.toString());
                             }
                         }){
                     @Override
@@ -146,7 +143,7 @@ public class ToDoRequest {
                 VolleyRequestQueue.getInstance(context).addToRequestQueue(jsObjRequest);
             } catch (JSONException e) {
                 Log.e(TAG, e.getMessage());
-                listener.onToDosError(e.getMessage());
+                listener.onFilmsError(e.getMessage());
             }
         }
     }
@@ -154,15 +151,15 @@ public class ToDoRequest {
     //
     // Callback interface - implemented by the calling class (MainActivity in our case).
     //
-    public interface ToDoListener {
+    public interface FilmListener {
         // Callback function to return a fresh list of ToDos
-        void onToDosAvailable(ArrayList<ToDo> toDos);
+        void onFilmsAvailable(ArrayList<Film> films);
 
-        // Callback function to handle a single added ToDo.
-        void onToDoAvailable(ToDo todo);
+        // Callback function to handle a single added Film.
+        void onFilmAvailable(Film film);
 
         // Callback to handle serverside API errors
-        void onToDosError(String message);
+        void onFilmsError(String message);
     }
 
 }

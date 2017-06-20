@@ -12,15 +12,15 @@ import java.util.ArrayList;
 
 import nl.avans.android.todos.R;
 
-public class ToDoAdapter extends BaseAdapter {
+public class FilmAdapter extends BaseAdapter {
 
     private final String TAG = this.getClass().getSimpleName();
 
     private Context mContext;
     private LayoutInflater mInflator;
-    private ArrayList<ToDo> bolToDoArrayList;
+    private ArrayList<Film> bolToDoArrayList;
 
-    public ToDoAdapter(Context context, LayoutInflater layoutInflater, ArrayList<ToDo> bolToDoArrayList) {
+    public FilmAdapter(Context context, LayoutInflater layoutInflater, ArrayList<Film> bolToDoArrayList) {
         this.mContext = context;
         this.mInflator = layoutInflater;
         this.bolToDoArrayList = bolToDoArrayList;
@@ -69,7 +69,7 @@ public class ToDoAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        ToDo bolToDo = bolToDoArrayList.get(position);
+        Film bolToDo = bolToDoArrayList.get(position);
         viewHolder.textViewTitle.setText(bolToDo.getTitle());
 
         return convertView;

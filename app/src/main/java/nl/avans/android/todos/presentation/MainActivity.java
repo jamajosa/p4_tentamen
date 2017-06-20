@@ -22,28 +22,28 @@ import android.widget.ListView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import nl.avans.android.todos.R;
-import nl.avans.android.todos.domain.ToDo;
-import nl.avans.android.todos.domain.ToDoAdapter;
-import nl.avans.android.todos.service.ToDoRequest;
+import nl.avans.android.todos.domain.Film;
+import nl.avans.android.todos.domain.FilmAdapter;
+import nl.avans.android.todos.service.FilmRequest;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         AdapterView.OnItemClickListener,
-        ToDoRequest.ToDoListener {
+        FilmRequest.FilmListener {
 
     // Logging tag
     public final String TAG = this.getClass().getSimpleName();
 
     // The name for communicating Intents extras
-    public final static String TODO_DATA = "TODOS";
+    public final static String FILM_DATA = "FILMS";
 
     // A request code for returning data from Intent - is supposed to be unique.
     public static final int MY_REQUEST_CODE = 1234;
 
     // UI Elements
     private ListView listViewToDos;
-    private BaseAdapter todoAdapter;
-    private ArrayList<ToDo> toDos = new ArrayList<>();
+    private BaseAdapter filmAdapter;
+    private ArrayList<Film> films = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +62,8 @@ public class MainActivity extends AppCompatActivity
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent newToDo = new Intent(getApplicationContext(), ToDoEditActivity.class);
-                    // We receive a ToDo object to be stored via the API.
+                    Intent newToDo = new Intent(getApplicationContext(), CustomerEditActivity.class);
+                    // We receive a Film object to be stored via the API.
                     startActivityForResult( newToDo, MY_REQUEST_CODE );
                 }
             });
@@ -79,15 +79,15 @@ public class MainActivity extends AppCompatActivity
 
             listViewToDos = (ListView) findViewById(R.id.listViewToDos);
             listViewToDos.setOnItemClickListener(this);
-            todoAdapter = new ToDoAdapter(this, getLayoutInflater(), toDos);
-            listViewToDos.setAdapter(todoAdapter);
+            filmAdapter = new FilmAdapter(this, getLayoutInflater(), films);
+            listViewToDos.setAdapter(filmAdapter);
             //
             // We hebben een token. Je zou eerst nog kunnen valideren dat het token nog
             // geldig is; dat doen we nu niet.
             // Vul de lijst met ToDos
             //
             Log.d(TAG, "Token gevonden - ToDos ophalen!");
-            getToDos();
+            getFilms();
         } else {
             //
             // Blijkbaar was er geen token - eerst inloggen dus
@@ -116,11 +116,11 @@ public class MainActivity extends AppCompatActivity
             Log.v( TAG, "onActivityResult OK" );
             if (resultCode == Activity.RESULT_OK )
             {
-                final ToDo newToDo = (ToDo) pData.getSerializableExtra(TODO_DATA);
-                Log.v( TAG, "Retrieved Value newToDo is " + newToDo);
+                final Film newFilm = (Film) pData.getSerializableExtra(FILM_DATA);
+                Log.v( TAG, "Retrieved Value newFilm is " + newFilm);
 
-                // We need to save our new ToDo
-                postTodo(newToDo);
+                // We need to save our new Film
+                postFilm(newFilm);
             }
         }
 
@@ -183,8 +183,8 @@ public class MainActivity extends AppCompatActivity
             editor.commit();
 
             // Empty the homescreen
-            toDos.clear();
-            todoAdapter.notifyDataSetChanged();
+            films.clear();
+            filmAdapter.notifyDataSetChanged();
 
             // Navigate to login screen
             Intent login = new Intent(getApplicationContext(), LoginActivity.class);
@@ -223,38 +223,38 @@ public class MainActivity extends AppCompatActivity
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Log.i(TAG, "Position " + position + " is geselecteerd");
 
-        ToDo toDo = toDos.get(position);
-        Intent intent = new Intent(getApplicationContext(), ToDoDetailActivity.class);
-        intent.putExtra(TODO_DATA, toDo);
+        Film film = films.get(position);
+        Intent intent = new Intent(getApplicationContext(), FilmDetailActivity.class);
+        intent.putExtra(FILM_DATA, film);
         startActivity(intent);
     }
 
     /**
      * Callback function - handle an ArrayList of ToDos
      *
-     * @param toDoArrayList
+     * @param films
      */
     @Override
-    public void onToDosAvailable(ArrayList<ToDo> toDoArrayList) {
+    public void onFilmsAvailable(ArrayList<Film> films) {
 
-        Log.i(TAG, "We hebben " + toDoArrayList.size() + " items in de lijst");
+        Log.i(TAG, "We hebben " + films.size() + " items in de lijst");
 
-        toDos.clear();
-        for(int i = 0; i < toDoArrayList.size(); i++) {
-            toDos.add(toDoArrayList.get(i));
+        this.films.clear();
+        for(int i = 0; i < films.size(); i++) {
+            this.films.add(films.get(i));
         }
-        todoAdapter.notifyDataSetChanged();
+        filmAdapter.notifyDataSetChanged();
     }
 
     /**
-     * Callback function - handle a single ToDo
+     * Callback function - handle a single Film
      *
-     * @param todo
+     * @param film
      */
     @Override
-    public void onToDoAvailable(ToDo todo) {
-        toDos.add(todo);
-        todoAdapter.notifyDataSetChanged();
+    public void onFilmAvailable(Film film) {
+        films.add(film);
+        filmAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -263,7 +263,7 @@ public class MainActivity extends AppCompatActivity
      * @param message
      */
     @Override
-    public void onToDosError(String message) {
+    public void onFilmsError(String message) {
         Log.e(TAG, message);
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
@@ -271,17 +271,17 @@ public class MainActivity extends AppCompatActivity
     /**
      * Start the activity to GET all ToDos from the server.
      */
-    private void getToDos(){
-        ToDoRequest request = new ToDoRequest(getApplicationContext(), this);
-        request.handleGetAllToDos();
+    private void getFilms(){
+        FilmRequest request = new FilmRequest(getApplicationContext(), this);
+        request.handleGetAllFilms();
     }
 
     /**
-     * Start the activity to POST a new ToDo to the server.
+     * Start the activity to POST a new Film to the server.
      */
-    private void postTodo(ToDo todo){
-        ToDoRequest request = new ToDoRequest(getApplicationContext(), this);
-        request.handlePostToDo(todo);
+    private void postFilm(Film film){
+        FilmRequest request = new FilmRequest(getApplicationContext(), this);
+        request.handlePostFilm(film);
     }
 
 }
