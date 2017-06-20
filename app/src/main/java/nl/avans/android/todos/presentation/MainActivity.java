@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity
     public static final int MY_REQUEST_CODE = 1234;
 
     // UI Elements
-    private ListView listViewToDos;
+    private ListView listViewFilms;
     private BaseAdapter filmAdapter;
     private ArrayList<Film> films = new ArrayList<>();
 
@@ -62,9 +62,9 @@ public class MainActivity extends AppCompatActivity
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent newToDo = new Intent(getApplicationContext(), CustomerEditActivity.class);
+                    Intent newFilm = new Intent(getApplicationContext(), CustomerEditActivity.class);
                     // We receive a Film object to be stored via the API.
-                    startActivityForResult( newToDo, MY_REQUEST_CODE );
+                    startActivityForResult( newFilm, MY_REQUEST_CODE );
                 }
             });
 
@@ -77,16 +77,18 @@ public class MainActivity extends AppCompatActivity
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
 
-            listViewToDos = (ListView) findViewById(R.id.listViewToDos);
-            listViewToDos.setOnItemClickListener(this);
+            listViewFilms = (ListView) findViewById(R.id.listViewToDos);
+            listViewFilms.setOnItemClickListener(this);
             filmAdapter = new FilmAdapter(this, getLayoutInflater(), films);
-            listViewToDos.setAdapter(filmAdapter);
+            listViewFilms.setAdapter(filmAdapter);
             //
             // We hebben een token. Je zou eerst nog kunnen valideren dat het token nog
             // geldig is; dat doen we nu niet.
-            // Vul de lijst met ToDos
+            // Vul de lijst met Films
             //
-            Log.d(TAG, "Token gevonden - ToDos ophalen!");
+
+
+            Log.d(TAG, "Token gevonden - Films ophalen!");
             getFilms();
         } else {
             //
@@ -229,11 +231,7 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    /**
-     * Callback function - handle an ArrayList of ToDos
-     *
-     * @param films
-     */
+
     @Override
     public void onFilmsAvailable(ArrayList<Film> films) {
 
@@ -245,6 +243,7 @@ public class MainActivity extends AppCompatActivity
         }
         filmAdapter.notifyDataSetChanged();
     }
+
 
     /**
      * Callback function - handle a single Film

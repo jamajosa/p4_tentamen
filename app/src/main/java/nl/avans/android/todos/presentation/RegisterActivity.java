@@ -50,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity{
         setContentView(R.layout.activity_film_register);
 
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
-        editTextPassword = (EditText) findViewById(R.id.edittextPassword);
+        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
 
         btnRegister = (Button) findViewById(R.id.buttonRegister);
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -58,9 +58,6 @@ public class RegisterActivity extends AppCompatActivity{
             public void onClick(View v) {
                 mEmail = editTextEmail.getText().toString();
                 mPassword = editTextPassword.getText().toString();
-                //txtRegisterErrorMsg.setText("");
-
-                // Cust Checken of username en password niet leeg zijn
 
                 handleRegister(mEmail, mPassword);
             }
@@ -68,11 +65,7 @@ public class RegisterActivity extends AppCompatActivity{
     }
 
     private void handleRegister(String email, String password) {
-        //
-        // Maak een JSON object met username en password. Dit object sturen we mee
-        // als request body (zoals je ook met Postman hebt gedaan)
-        // slash \ zorgt ervoor dat de volgende accolade niet wordt gezien als einde van de string.
-        //
+
         String body = "{\"email\":\"" + email + "\",\"password\":\"" + password + "\"}";
         Log.i(TAG, "handleRegister - body = " + body);
 

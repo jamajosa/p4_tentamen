@@ -35,11 +35,11 @@ public class CustomerEditActivity extends AppCompatActivity implements View.OnCl
         // and for editing existing ToDos
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
-            Film toDo = (Film) extras.getSerializable(FILM_DATA);
-            Log.i(TAG, toDo.toString());
+            Film film = (Film) extras.getSerializable(FILM_DATA);
+            Log.i(TAG, film.toString());
 
-            textTitle.setText(toDo.getTitle());
-            textContents.setText(toDo.getContents());
+            textTitle.setText(film.getTitle());
+            textContents.setText(film.getContents());
         }
     }
 

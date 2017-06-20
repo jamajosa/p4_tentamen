@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText editTextUsername;
     private EditText editTextPassword;
     private TextView txtLoginErrorMsg;
-    private Button btnLogin;
+    private Button btnLogin, btnRegister;
 
     private String mUsername;
     private String mPassword;
@@ -57,6 +57,13 @@ public class LoginActivity extends AppCompatActivity {
                 // TODO Checken of username en password niet leeg zijn
 
                 handleLogin(mUsername, mPassword);
+            }
+        });
+        btnRegister = (Button) findViewById(R.id.btnRegister);
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleRegister();
             }
         });
     }
@@ -125,6 +132,15 @@ public class LoginActivity extends AppCompatActivity {
             // e.printStackTrace();
         }
         return;
+    }
+
+    private void handleRegister() {
+
+        // Start the register activity, and close the login activity
+        Intent register = new Intent(getApplicationContext(), RegisterActivity.class);
+        startActivity(register);
+        // Close the current activity
+        finish();
     }
 
     public void handleErrorResponse(VolleyError error) {

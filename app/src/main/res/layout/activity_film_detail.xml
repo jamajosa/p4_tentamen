@@ -19,14 +19,14 @@
             android:layout_height="wrap_content"
             android:textSize="18dp"
             android:layout_marginBottom="12dp"
-            android:id="@+id/textDetailToDoTitle"/>
+            android:id="@+id/textDetailFilmTitle"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16dp"
             android:layout_gravity="top"
-            android:id="@+id/textDetailToDoContents"/>
+            android:id="@+id/textDetailFilmContents"/>
 
     </LinearLayout>
 

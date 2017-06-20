@@ -7,9 +7,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import nl.avans.android.todos.R;
-import nl.avans.android.todos.domain.Customer;
 import nl.avans.android.todos.domain.Film;
-import nl.avans.android.todos.service.FilmRequest;
 
 import static nl.avans.android.todos.presentation.MainActivity.FILM_DATA;
 
@@ -25,8 +23,8 @@ public class FilmDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_film_detail);
 
-        textTitle = (TextView) findViewById(R.id.textDetailToDoTitle);
-        textContents = (TextView) findViewById(R.id.textDetailToDoContents);
+        textTitle = (TextView) findViewById(R.id.textDetailFilmTitle);
+        textContents = (TextView) findViewById(R.id.textDetailFilmContents);
 
         Bundle extras = getIntent().getExtras();
 
